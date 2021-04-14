@@ -1,0 +1,54 @@
+{% extends "players/base.html" %}
+
+{% block page_title %}Team Builder - Football Tool{% endblock page_title %}
+
+{% block content %}
+
+{% load in_euros %}
+
+    <div class="w-50 mx-auto">
+        <h3>Team Builder</h3>
+
+        {% include 'players/teambuilder/_form.html' %}
+    </div>
+
+        {% if team %}
+            <br />
+            <h5>Suggested team</h5>
+            <p>
+                Your budget was {% in_euros value=budget %}. 
+                The suggested team costs <b>{% in_euros value=total_cost %}</b> for a total score of <b>{{ total_score }}</b>.
+                The remaining budget is {% in_euros value=leftover_budget %}.
+            </p>
+            <ul>
+                <li>Average player cost: {% in_euros value=average_cost|floatformat:0 %}</li>
+                <li>Average player score: {{ average_score|floatformat:0 }}</li>
+            </ul>
+            <br />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Nationality</th>
+                        <th scope="col">Club</th>
+                        <th scope="col">Overall</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Cost*</th>
+                    </tr>
+                    <tbody>
+                        {% for player in team %}
+                            {% include 'players/teambuilder/_player.html' with player=player %}
+                        {% endfor %}
+                    </tbody>
+                </thead>
+            </table>
+
+            <br />
+
+            * Player cost is calculated as Wage + Release clause.
+        {% endif %}
+
+    </div>
+{% endblock content %}

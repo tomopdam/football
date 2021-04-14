@@ -1,0 +1,16 @@
+{% load in_euros %}
+{% load groupname %}
+<tr>
+    {% if player.photo_exists %}
+        <td scope="row"><img src="{{ player.photo }}"></td>
+    {% else %}
+        <td scope="row"><img src="https://cdn.sofifa.com/players/notfound_0_120.png"></td>
+    {% endif %}
+    <td><b><a href="{% url 'player-detail' player.pk %}" target="_blank">{{ player.name }}</a></b></td>
+    <td>{{ player.group|groupname }}</td>
+    <td>{{ player.nationality }}</td>
+    <td>{{ player.club }}</td>
+    <td>{{ player.overall }}</td>
+    <td>{% in_euros value=player.value %}</td>
+    <td>{% in_euros value=player.cost %}</td>
+</tr>

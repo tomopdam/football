@@ -1,0 +1,12 @@
+{% load bootstrap4 %}
+
+<form action="{% url 'team-builder' %}" method="get">
+    <div class="form-inline">
+        <label class="control-label" for="id_budget">Budget: € &nbsp;</label>
+        {% bootstrap_form form layout='inline' %}
+        &nbsp;
+        {% buttons %}
+            <input type="submit" value="Build team">
+        {% endbuttons %}
+    </div>
+</form>

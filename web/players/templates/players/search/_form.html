@@ -1,0 +1,13 @@
+{% load bootstrap4 %}
+
+<form action="{% url 'search' %}" method="get">
+    {% bootstrap_form form layout='inline' %}
+    <div class="mx-auto text-center">
+        {% buttons %}
+            <input type="submit" value="Search">
+            {% if not performed_search %}
+                <input type="reset" value="Reset">
+            {% endif %}
+        {% endbuttons %}
+    </div>
+</form>

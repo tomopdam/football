@@ -1,0 +1,60 @@
+{% extends "players/base.html" %}
+
+{% block page_title %}Search - Football Tool{% endblock page_title %}
+
+{% block content %}
+    <div class="w-50 mx-auto">
+        <h3>Search players</h3>
+        {% include 'players/search/_form.html' %}
+    </div>
+
+    {% if performed_search %}
+
+        <hr>
+
+        <div class="w-50 mx-auto text-center">
+            <h4>Results</h4>
+            <a href="{% url "search" %}">Clear results</a>
+            <br /><br />
+            Found {{ page_obj.paginator.count }} result{{ page_obj.paginator.count|pluralize:"s" }}. 
+            {% if page_obj.paginator.count > 30 %}
+                Showing {{ page_obj.start_index }} to {{ page_obj.end_index }}.
+            {% endif %}
+        </div>
+        <br />
+
+        {% if page_obj.paginator.num_pages > 1 %}
+            {% include 'players/search/_pagination.html' %}
+        {% endif %}
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Nationality</th>
+                    <th scope="col">Club</th>
+                    <th scope="col">Overall</th>
+                    <th scope="col">Value</th>
+                </tr>
+                <tbody>
+                    {% for player in page_obj %}
+                        {% include 'players/search/_player.html' with player=player %}
+                    {% endfor %}
+                </tbody>
+            </thead>
+        </table>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+            {% include 'players/search/_pagination.html' %}
+        {% endif %}
+
+        {% if page_obj.paginator.count > 5 %}
+            <div class="mx-auto text-center">
+                <a href="#top">Back to top</a>
+            </div>
+        {% endif %}
+
+    {% endif %}
+{% endblock content %}

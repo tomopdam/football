@@ -1,0 +1,82 @@
+{% extends "players/base.html" %}
+
+{% block page_title %}{{ player.name }} - Football Tool{% endblock page_title %}
+
+{% block content %}
+
+{% load in_euros %}
+{% load groupname %}
+
+    <div class="card">
+        <div class="card-header">
+            <h2>{{ player.name }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-row">
+                <div>
+                    {% if player.photo_exists %}
+                        <img src="{{ player.photo }}">
+                    {% else %}
+                        <img src="https://cdn.sofifa.com/players/notfound_0_120.png">
+                    {% endif %}
+                </div>
+                <div class="p-2">
+                    <!-- spacer -->
+                </div>
+                <div>
+                    <table class="table table-striped">
+                        <tbody>
+                          <tr>
+                            <th scope="row">Name</th>
+                            <td>{{ player.name }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">External ID</th>
+                            <td><a href="https://sofifa.com/player/{{player.id_ext}}/">{{ player.id_ext }}</a></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Age</th>
+                            <td>{{ player.age }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Nationality</th>
+                            <td>{{ player.nationality }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Club</th>
+                            <td>{{ player.club }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Overall</th>
+                            <td>{{ player.overall }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Value</th>
+                            <td>{% in_euros value=player.value %}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Wage</th>
+                            <td>{% in_euros value=player.wage %}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Release Clause</th>
+                            <td>{% in_euros value=player.release_clause %}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Position</th>
+                            <td>{{ player.position }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Group</th>
+                            <td>{{ player.group|groupname }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock content %}
