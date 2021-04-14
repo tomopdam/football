@@ -2,4 +2,6 @@ Init with:
 
 docker-compose up
 
-access via localhost
+and access via http://localhost
+
+Miscellaneous code that was used during development is available in /misc/.
